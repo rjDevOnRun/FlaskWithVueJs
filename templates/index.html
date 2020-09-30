@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Avatar Image--><img class="masthead-avatar mb-5" src="./static/assets/img/avataaars.svg" alt="">
+            <!-- Masthead Heading-->
+            <h1 class="masthead-heading mb-0">Learn Flask with Vue.js</h1>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading-->
+            <p class="pre-wrap masthead-subheading font-weight-light mb-0">Roby John @2020</p>
+        </div>
+    </header>
+
+    <section class="page-section portfolio" id="portfolio">
+        <div class="container">
+            <!-- Portfolio Section Heading-->
+            <div class="text-center">
+                <h2 class="page-section-heading text-secondary mb-0 d-inline-block">PORTFOLIO</h2>
+            </div>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Portfolio Grid Items-->
+            <div class="row justify-content-center">
+
+                <!-- Init Vue.js application here -->
+                <div id="app">
+                    <h2> Data fetched using Vue.js calls</h2>
+                   <h1> [[ band.title ]] </h1>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <!-- Import Vue functionality to use Js and Ajax calls -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
+
+    <!-- Define VUE.js application here 
+    //title: "Hello World from Vue.js Application"-->
+    <script>
+        var app = new Vue({
+            el:'#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                band: {}
+            },
+            mounted: function () {
+                this.fetchData();
+            },
+            methods: {
+                fetchData: function () {
+                    this.$http.get('/test').then(response => {
+                        this.band = response.body;
+                    }, response => {
+                        // error callback
+                        console.log("an error occured");
+                    });
+                }
+            }
+        })
+    </script>
+{% endblock %}
